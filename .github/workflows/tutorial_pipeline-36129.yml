@@ -1,0 +1,31 @@
+# Generated CI/CD Pipeline YAML
+# This YAML is compatible with GitHub Actions
+
+# Pipeline: tutorial_pipeline
+name: tutorial_pipeline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_test:
+    # Build and test the installation
+    runs-on: ubuntu-latest
+    steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+            - name: Set up python
+              uses: actions/setup-python@v4
+              with:
+                        python-version: '3.9'
+            - name: Install dependencies
+              run: pip install -r requirements.txt
+            - name: Run tests
+              run: pytest
+  Deploy to Heroku:
+    runs-on: ubuntu-latest
+    steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+            - name: Deploy application
+              uses: akhileshns/heroku-deploy@v3.12.12
